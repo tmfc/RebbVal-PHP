@@ -3,7 +3,7 @@
 /*
  * Generated from RebbVal.g4 by ANTLR 4.9
  */
-
+namespace Rebb\Val;
 use Antlr\Antlr4\Runtime\Tree\ParseTreeVisitor;
 
 /**
