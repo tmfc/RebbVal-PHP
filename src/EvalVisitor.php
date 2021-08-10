@@ -65,89 +65,89 @@ class EvalVisitor extends RebbValBaseVisitor
 
     //Unary Test and Combination begin
 
-    public function visitConjunction(Context\ConjunctionContext $ctx) {
-        $unaryCtx0 = $ctx->unaryTests();
-        $unaryCtx1 = $ctx->unaryTest();
+    public function visitConjunction(Context\ConjunctionContext $context) {
+        $unaryCtx0 = $context->unaryTests();
+        $unaryCtx1 = $context->unaryTest();
         $this->visit($unaryCtx0);
         $this->visit($unaryCtx1);
         if(is_bool($this->getValue($unaryCtx0)) && is_bool($this->getValue($unaryCtx1)))
         {
             $value0 = $this->getValue($unaryCtx0);
             $value1 = $this->getValue($unaryCtx1);
-            $this->setValue($ctx, $value0 && $value1);
+            $this->setValue($context, $value0 && $value1);
             $this->valid = $value0 && $value1;
         }
         else
         {
-            $this->setValue($ctx, false);
+            $this->setValue($context, false);
             $this->valid = false;
             $this->error = "ExpressionValueTypeNotMatch";
         }
     }
 
-    public function visitDisjunction(Context\DisjunctionContext $ctx) {
-        $unaryCtx0 = $ctx->unaryTests();
-        $unaryCtx1 = $ctx->unaryTest();
+    public function visitDisjunction(Context\DisjunctionContext $context) {
+        $unaryCtx0 = $context->unaryTests();
+        $unaryCtx1 = $context->unaryTest();
         $this->visit($unaryCtx0);
         $this->visit($unaryCtx1);
         if(is_bool($this->getValue($unaryCtx0)) && is_bool($this->getValue($unaryCtx1)))
         {
             $value0 = $this->getValue($unaryCtx0);
             $value1 = $this->getValue($unaryCtx1);
-            $this->setValue($ctx, $value0 || $value1);
+            $this->setValue($context, $value0 || $value1);
             $this->valid = $value0 || $value1;
         }
         else
         {
-            $this->setValue($ctx, false);
+            $this->setValue($context, false);
             $this->valid = false;
             $this->error = "ExpressionValueTypeNotMatch";
         }
     }
 
-    public function visitSingleTest(Context\SingleTestContext $ctx) {
-        $unaryCtx = $ctx->unaryTest();
+    public function visitSingleTest(Context\SingleTestContext $context) {
+        $unaryCtx = $context->unaryTest();
         $this->visit($unaryCtx);
 
         if(is_bool($this->getValue($unaryCtx)))
         {
             $value = $this->getValue($unaryCtx);
-            $this->setValue($ctx, $value);
+            $this->setValue($context, $value);
             $this->valid = $value;
         }
         else
         {
-            $this->setValue($ctx, false);
+            $this->setValue($context, false);
             $this->valid = false;
             $this->error = "ExpressionValueTypeNotMatch";
         }
     }
 
-    public function visitNormalUnaryTest(Context\NormalUnaryTestContext $ctx) {
-        $this->visit($ctx->positiveUnaryTest());
-        $this->setValue($ctx, $this->getValue($ctx->positiveUnaryTest()));
+    public function visitNormalUnaryTest(Context\NormalUnaryTestContext $context) {
+        $this->visit($context->positiveUnaryTest());
+        $this->setValue($context, $this->getValue($context->positiveUnaryTest()));
     }
 
-    public function visitNegationUnaryTest(Context\NegationUnaryTestContext $ctx)
+    public function visitNegationUnaryTest(Context\NegationUnaryTestContext $context)
     {
-        $unaryTestCtx = $ctx->positiveUnaryTest();
+        $unaryTestCtx = $context->positiveUnaryTest();
         $this->visit($unaryTestCtx);
         if (is_bool($this->getValue($unaryTestCtx))) {
             $value = $this->getValue($unaryTestCtx);
-            $this->setValue($ctx, !$value);
+            $this->setValue($context, !$value);
         } else {
-            $this->setValue($ctx, false);
+            $this->setValue($context, false);
             $this->error = "ExpressionValueTypeNotMatch";
         }
     }
 
-    public function visitIgnoreUnaryTest(Context\IgnoreUnaryTestContext $ctx) {
-        $this->setValue($ctx, true);
+    public function visitIgnoreUnaryTest(Context\IgnoreUnaryTestContext $context) {
+        $this->setValue($context, true);
     }
 
-    public function visitPositiveUnaryTest(Context\PositiveUnaryTestContext $ctx) {
-        $this->visit($ctx->expression());
-        $this->setValue($ctx, $this->getValue($ctx->expression()));
+    public function visitPositiveUnaryTest(Context\PositiveUnaryTestContext $context) {
+        $this->visit($context->expression());
+        $this->setValue($context, $this->getValue($context->expression()));
     }
     //Unary Test and Combination end
 
@@ -236,4 +236,24 @@ class EvalVisitor extends RebbValBaseVisitor
         }
     }
     //Compare start
+
+    // Contain/In start
+    public function visitIn(Context\InContext $ctx) {
+        $this->visit($ctx->expression());
+        $exprValue = $this->getValue($ctx->expression());
+        if(is_string($this->obj) && is_string($exprValue))
+        {
+            $this->setValue($ctx, strpos($this->obj, $exprValue) !== false);
+        }
+        else if(is_numeric($this->obj) && is_array($exprValue))
+        {
+            $this->setValue($ctx, in_array($this->obj, $exprValue));
+        }
+        else
+        {
+            $this->setValue($ctx, false);
+            $this->error = "UnsupportedObjectType";
+        }
+    }
+    // Contain/In end
 }
