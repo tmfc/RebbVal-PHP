@@ -4,7 +4,7 @@
  * Generated from RebbVal.g4 by ANTLR 4.9
  */
 
-namespace Rebb\Val{
+namespace Rebb\Val {
 	use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
 	use Antlr\Antlr4\Runtime\Atn\LexerATNSimulator;
 	use Antlr\Antlr4\Runtime\Lexer;

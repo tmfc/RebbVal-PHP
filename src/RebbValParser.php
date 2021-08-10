@@ -4,7 +4,7 @@
  * Generated from RebbVal.g4 by ANTLR 4.9
  */
 
-namespace Rebb\Val{
+namespace Rebb\Val {
 	use Antlr\Antlr4\Runtime\Atn\ATN;
 	use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
 	use Antlr\Antlr4\Runtime\Atn\ParserATNSimulator;
@@ -754,15 +754,15 @@ namespace Rebb\Val{
 	}
 }
 
-namespace RebbVal\Val\Context {
+namespace Rebb\Val\Context {
 	use Antlr\Antlr4\Runtime\ParserRuleContext;
 	use Antlr\Antlr4\Runtime\Token;
 	use Antlr\Antlr4\Runtime\Tree\ParseTreeVisitor;
 	use Antlr\Antlr4\Runtime\Tree\TerminalNode;
 	use Antlr\Antlr4\Runtime\Tree\ParseTreeListener;
-	use RebbVal\Val\RebbValParser;
-	use RebbValVisitor;
-	use RebbValListener;
+	use Rebb\Val\RebbValParser;
+	use Rebb\Val\RebbValVisitor;
+	use Rebb\Val\RebbValListener;
 
 	class UnaryTestsContext extends ParserRuleContext
 	{

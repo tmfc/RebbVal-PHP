@@ -28,11 +28,11 @@ class AgeTest extends \Codeception\Test\Unit
         assertTrue($v->val($date2, "older than 18"));
 
         $date3 = $v->date('now')->sub(new DateInterval('P17Y10M'));
-        assertFalse($v->val($date3, "younger than 18"));
-        assertTrue($v->val($date3, "older than 18"));
+        assertTrue($v->val($date3, "younger than 18"));
+        assertFalse($v->val($date3, "older than 18"));
 
         $date4 = $v->date('now')->sub(new DateInterval('P18Y1M'));
-        assertTrue($v->val($date4, "younger than 18"));
-        assertFalse($v->val($date4, "older than 18"));
+        assertFalse($v->val($date4, "younger than 18"));
+        assertTrue($v->val($date4, "older than 18"));
     }
 }
