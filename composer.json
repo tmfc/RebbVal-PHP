@@ -14,7 +14,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Rebb\\Val\\\\Tests\\": "tests/"
+            "Rebb\\Val\\Tests\\": "tests/"
         }
     }
 }
