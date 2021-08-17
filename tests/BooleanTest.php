@@ -91,6 +91,4 @@ class BooleanTest extends \Codeception\Test\Unit
         assertTrue($v->val("yes","is false"));
         assertTrue($v->val("0","is false"));
     }
-
-
 }
