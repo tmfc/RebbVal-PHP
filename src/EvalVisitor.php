@@ -81,8 +81,7 @@ class EvalVisitor extends RebbValBaseVisitor
     }
 
 
-    //Unary Test and Combination begin
-
+    //region Unary Test and Combination
     public function visitConjunction(Context\ConjunctionContext $context) {
         $unaryCtx0 = $context->unaryTests();
         $unaryCtx1 = $context->unaryTest();
@@ -167,9 +166,9 @@ class EvalVisitor extends RebbValBaseVisitor
         $this->visit($context->expression());
         $this->setValue($context, $this->getValue($context->expression()));
     }
-    //Unary Test and Combination end
+    //endregion
 
-    //Basic element start
+    //region Basic element
     /** String */
     public function visitString(Context\StringContext $context)
     {
@@ -216,10 +215,10 @@ class EvalVisitor extends RebbValBaseVisitor
             $this->error = $ex->getMessage();
         }
     }
-    //Basic element end
+    //endregion
 
 
-    //Compare start
+    //region Compare
     /** Age Compare*/
     public function visitAgeCompare(Context\AgeCompareContext $context) {
         $result = false;
@@ -253,9 +252,9 @@ class EvalVisitor extends RebbValBaseVisitor
             $this->error = "UnsupportedObjectType";
         }
     }
-    //Compare start
+    //endregion
 
-    // Contain/In start
+    //region Contain/In
     public function visitIn(Context\InContext $ctx) {
         $this->visit($ctx->expression());
         $exprValue = $this->getValue($ctx->expression());
@@ -273,7 +272,7 @@ class EvalVisitor extends RebbValBaseVisitor
             $this->error = "UnsupportedObjectType";
         }
     }
-    // Contain/In end
+    //endregion
 
     public function visitIs(Context\IsContext $context) {
         $b = new BuildInFunctions($this->config);
