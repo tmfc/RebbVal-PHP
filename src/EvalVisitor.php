@@ -17,14 +17,17 @@ class EvalVisitor extends RebbValBaseVisitor
     private $values;
 
     private $customFunctions = [];
+
+    private $config;
     /**
      * EvalVisitor constructor.
      * @param  $obj
      */
-    public function __construct($obj)
+    public function __construct($obj, $global_config)
     {
         $this->setTimezone(new DateTimeZone('Asia/Shanghai'));
         $this->setObject($obj);
+        $this->initConfig($global_config);
     }
 
     public function setTimezone($timezone)
@@ -60,6 +63,21 @@ class EvalVisitor extends RebbValBaseVisitor
     public function registerCustomValidator($name, $class)
     {
         $this->customFunctions[$name] = $class;
+    }
+
+    private function initConfig($global_config = null)
+    {
+        if(!empty($global_config) && is_array($global_config))
+            $this->config = $global_config;
+        else
+            $this->config = [];
+        if(!array_key_exists(RebbValConfig::TRUE_STRING, $this->config))
+            $this->config[RebbValConfig::TRUE_STRING] = ['true','on', '1', 'yes','ok'];
+    }
+
+    public function addConfig($key, $value)
+    {
+        $this->config[$key] = $value;
     }
 
 
@@ -256,4 +274,12 @@ class EvalVisitor extends RebbValBaseVisitor
         }
     }
     // Contain/In end
+
+    public function visitIs(Context\IsContext $context) {
+        $b = new BuildInFunctions($this->config);
+        $result = $b->check($context->type->getType(), $this->obj);
+
+        $this->setValue($context, $result);
+    }
+
 }

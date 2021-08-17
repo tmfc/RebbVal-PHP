@@ -15,6 +15,13 @@ class RebbVal
     private $has_error;
     private $errors;
 
+    static private $global_config;
+
+    static public function addGlobalConfig($key, $value)
+    {
+        self::$global_config[$key] = $value;
+    }
+
 //    private $condition;
 //    private $object;
 
@@ -23,7 +30,7 @@ class RebbVal
      */
     public function __construct()
     {
-        $this->engine = new EvalVisitor("");
+        $this->engine = new EvalVisitor("", self::$global_config);
         $this->has_error = false;
         $this->errors = [];
     }
@@ -57,6 +64,11 @@ class RebbVal
     public function registerCustomValidator($name, $class)
     {
         $this->engine->registerCustomValidator($name, $class);
+    }
+
+    public function addConfig($key, $value)
+    {
+        $this->engine->addConfig($key, $value);
     }
 
     public function setTimezone($timezone) { $this->engine->setTimezone($timezone); }
