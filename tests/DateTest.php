@@ -52,14 +52,12 @@ class DateTest extends \Codeception\Test\Unit
         $date2 = $v->date("2021-05-01");
         assertTrue($v->val($date1, $condition));
         assertFalse($v->val($date2, $condition));
-
     }
 
 
     public function testDateCompare()
     {
         $v = new RebbVal();
-
 
         $date1 = $v->date("2020-05-01");
 

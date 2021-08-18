@@ -116,4 +116,27 @@ class BuildInFunctions
             return false;
         }
     }
+
+    public function checkLeapYear($obj): bool
+    {
+        if(is_a($obj, \DateTimeImmutable::class)){
+            return date("L", $obj->getTimestamp());
+        }
+        else
+        {
+            $this->error = "ObjectTypeNotDate";
+            return false;
+        }
+    }
+    public function checkLeapDay($obj): bool
+    {
+        if(is_a($obj, \DateTimeImmutable::class)){
+            return date("L", $obj->getTimestamp()) && $obj->format('m-d') == "02-29";
+        }
+        else
+        {
+            $this->error = "ObjectTypeNotDate";
+            return false;
+        }
+    }
 }
