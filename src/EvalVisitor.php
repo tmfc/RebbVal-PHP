@@ -92,6 +92,11 @@ class EvalVisitor extends RebbValBaseVisitor
         $this->config[$key] = $value;
     }
 
+    private function is_date($o): bool
+    {
+        return is_a($o, DateTimeImmutable::class);
+    }
+
 
     //region Unary Test and Combination
     public function visitConjunction(Context\ConjunctionContext $context)
@@ -260,36 +265,145 @@ class EvalVisitor extends RebbValBaseVisitor
         }
     }
 
-    public function visitBetween(Context\BetweenContext $ctx)
+    public function visitCompare(Context\CompareContext $context)
     {
-        $this->visit($ctx->expression(0));
-        $this->visit($ctx->expression(1));
-        $l_value = $this->getValue($ctx->expression(0));
-        $r_value = $this->getValue($ctx->expression(1));
+        $result = false;
+        $this->visit($context->expression());
+        $exprValue = $this->getValue($context->expression());
+        if (is_string($this->obj) && is_string($exprValue))
+        {
+
+            if($context->op->getType() == RebbValParser::EQUAL)
+                $result = $$this->obj == $exprValue;
+            else
+            {
+                $result = false;
+                $this->error = "Unsupported Operation";
+            }
+            $this->setValue($context, $result);
+        }
+        else if((is_numeric($this->obj) && is_numeric($exprValue))
+        || ($this->is_date($this->obj) && $this->is_date($exprValue))) {
+            $result = $this->doCompare($this->obj, $exprValue, $context->op->getType());
+            $this->setValue($context, $result);
+        }
+        else
+        {
+            $this->setValue($context, false);
+            $this->error = "UnsupportedObjectType";
+        }
+        return null;
+    }
+    
+    private function doCompare($obj,$v, $t): bool
+    {
+        $result = false;
+        if($this->is_date($obj))
+        {
+            $obj = $obj->getTimestamp();
+            $v = $v->getTimestamp();
+        }
+
+        switch($t) {
+            case RebbValParser::EQUAL:
+                $result = $obj == $v;
+                break;
+            case RebbValParser::NEQUAL:
+                $result = $obj != $v;
+                break;
+            case RebbValParser::GT:
+                $result = $obj > $v;
+                break;
+            case RebbValParser::GTE:
+                $result = $obj >= $v;
+                break;
+            case RebbValParser::LT:
+                $result = $obj < $v;
+                break;
+            case RebbValParser::LTE:
+                $result = $obj <= $v;
+                break;
+        }
+        return $result;
+    }
+
+    public function visitBetween(Context\BetweenContext $context)
+    {
+        $this->visit($context->expression(0));
+        $this->visit($context->expression(1));
+        $l_value = $this->getValue($context->expression(0));
+        $r_value = $this->getValue($context->expression(1));
         if (is_numeric($this->obj) && is_numeric($l_value) && is_numeric($r_value)) {
 
             if ($this->obj >= $l_value && $this->obj <= $r_value) {
-                setValue($ctx, true);
+                $this->setValue($context, true);
             } else {
-                $this->setValue($ctx, false);
+                $this->setValue($context, false);
             }
-        } else if (is_a($this->obj, DateTimeImmutable::class)
-            && is_a($l_value, DateTimeImmutable::class)
-            && is_a($r_value, DateTimeImmutable::class)) {
-            /** @var DateTimeImmutable $obj */
+        } else if ($this->is_date($this->obj)
+            && $this->is_date($l_value)
+            && $this->is_date($r_value)) {
+
             $obj = $this->obj->getTimestamp();
             $l = $l_value->getTimestamp();
             $r = $r_value->getTimestamp();
 
             if ($obj >= $l && $obj <= $r) {
-                $this->setValue($ctx, true);
+                $this->setValue($context, true);
             } else {
-                $this->setValue($ctx, false);
+                $this->setValue($context, false);
             }
         } else {
-            $this->setValue($ctx, false);
+            $this->setValue($context, false);
             $this->error = "ObjectTypeNotSupported";
         }
+    }
+
+    public function visitInterval(Context\IntervalContext $context)
+    {
+        $this->visit($context->expression(0));
+        $this->visit($context->expression(1));
+        $l_value = $this->getValue($context->expression(0));
+        $r_value = $this->getValue($context->expression(1));
+        if((is_numeric($l_value) && is_numeric($r_value) && is_numeric($this->obj))
+            || ($this->is_date($this->obj)
+                && $this->is_date($l_value)
+                && $this->is_date($r_value)))
+        {
+            $result = $this->doIntervalCompare($this->obj, $l_value, $r_value, $context->start->getText(), $context->end->getText());
+            $this->setValue($context, $result);
+        }
+
+        else{
+            $this->setValue($context, false);
+            $this->error = "UnsupportedObjectType";
+        }
+    }
+
+    private function doIntervalCompare($obj, $l,  $r,  $start, $end): bool
+    {
+        if($this->is_date($obj))
+        {
+            $obj = $obj->getTimestamp();
+            $l = $l->getTimestamp();
+            $r = $r->getTimestamp();
+        }
+
+        $startResult = false;
+        if($start == "(" || $start == "]")
+            $startResult = $obj > $l;
+        if($start == "[")
+            $startResult = $obj >= $l;
+
+        $endResult = false;
+        if($startResult){
+            if($end == ")" || $end == "[")
+                $endResult = $obj < $r;
+            if($end == "]")
+                $endResult = $obj <= $r;
+        }
+
+        return $startResult && $endResult;
     }
     //endregion
 

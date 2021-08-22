@@ -104,6 +104,29 @@ class BuildInFunctions
         }
     }
 
+    public function checkLeapYear($obj): bool
+    {
+        if(is_a($obj, \DateTimeImmutable::class)){
+            return date("L", $obj->getTimestamp());
+        }
+        else
+        {
+            $this->error = "ObjectTypeNotDate";
+            return false;
+        }
+    }
+    public function checkLeapDay($obj): bool
+    {
+        if(is_a($obj, \DateTimeImmutable::class)){
+            return date("L", $obj->getTimestamp()) && $obj->format('m-d') == "02-29";
+        }
+        else
+        {
+            $this->error = "ObjectTypeNotDate";
+            return false;
+        }
+    }
+
     public function checkIMEI($obj): bool
     {
         $regex = '/^(\d{15})$|^(\d{2}\-\d{6}\-\d{6}\-\d)$/';

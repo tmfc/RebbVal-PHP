@@ -3,6 +3,8 @@
 use Rebb\Val\RebbVal;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNull;
 
 class DateTest extends \Codeception\Test\Unit
 {
@@ -22,11 +24,11 @@ class DateTest extends \Codeception\Test\Unit
         $condition = "between 2020-01-01 and 2021-01-01";
         assertTrue($v->val($v->date("2020-05-01"), $condition));
 
-//        assertNull($v->date("20200501"));
-//        assertEquals("Parse date string error, java.text.ParseException: Unparseable date: \"20200501\"", v . getErrors() . get(0));
+        assertNull($v->date("ABC"));
+        assertEquals("DateTimeImmutable::__construct(): Failed to parse time string (ABC) at position 0 (A): The timezone could not be found in the database", $v->getErrors()[0]);
 
-//        assertFalse($v->val($v->date("20200501"), $condition));
-//        assertEquals("object is null(Object type not supported)", $v->getErrors()[0]);
+        assertFalse($v->val($v->date("ABC"), $condition));
+        assertEquals("object is null(ObjectTypeNotSupported)", $v->getErrors()[0]);
     }
 
 
@@ -51,12 +53,21 @@ class DateTest extends \Codeception\Test\Unit
         assertTrue($v->val($date1, $condition));
         assertFalse($v->val($date2, $condition));
 
+        $date1 = $v->date("2020-01-01");
+        $date2 = $v->date("2021-01-01");
+        assertTrue($v->val($date1, "[2020-01-01 .. 2021-01-01)"));
+        assertTrue($v->val($date2, "(2020-01-01 .. 2021-01-01]"));
+        assertFalse($v->val($date1, "(2020-01-01 .. 2021-01-01)"));
+        assertFalse($v->val($date2, "(2020-01-01 .. 2021-01-01)"));
+
+
     }
 
 
     public function testDateCompare()
     {
         $v = new RebbVal();
+
         $date1 = $v->date("2020-05-01");
 
         assertTrue($v->val($date1, "=2020-05-01"));
