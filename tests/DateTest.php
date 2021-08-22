@@ -3,8 +3,6 @@
 use Rebb\Val\RebbVal;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertNull;
 
 class DateTest extends \Codeception\Test\Unit
 {
@@ -59,8 +57,6 @@ class DateTest extends \Codeception\Test\Unit
     public function testDateCompare()
     {
         $v = new RebbVal();
-
-
         $date1 = $v->date("2020-05-01");
 
         assertTrue($v->val($date1, "=2020-05-01"));
