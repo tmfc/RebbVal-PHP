@@ -274,7 +274,7 @@ class EvalVisitor extends RebbValBaseVisitor
         {
 
             if($context->op->getType() == RebbValParser::EQUAL)
-                $result = $$this->obj == $exprValue;
+                $result = $this->obj == $exprValue;
             else
             {
                 $result = false;

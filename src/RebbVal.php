@@ -98,7 +98,7 @@ class RebbVal
             if($object == null)
                 $error_message = "object is null";
             else
-                $error_message = $condition . " failed" ;//$object . " " . $condition . " failed";
+                $error_message = $object . " " . $condition . " failed" ;//$object . " " . $condition . " failed";
             if($this->engine->getError() != null && $this->engine->getError() != "")
                 $error_message .= "(" . $this->engine->getError() . ")";
             $this->errors[] = $error_message;
