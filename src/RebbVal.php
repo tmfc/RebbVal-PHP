@@ -98,7 +98,13 @@ class RebbVal
             if($object == null)
                 $error_message = "object is null";
             else
-                $error_message = $object . " " . $condition . " failed" ;//$object . " " . $condition . " failed";
+            {
+                if(is_a($object, DateTimeImmutable::class))
+                    $error_message = $object->format('Y-m-d H:i:s') . " " . $condition . " failed";
+                else
+                    $error_message = $object . " " . $condition . " failed" ;//$object . " " . $condition . " failed";
+
+            }
             if($this->engine->getError() != null && $this->engine->getError() != "")
                 $error_message .= "(" . $this->engine->getError() . ")";
             $this->errors[] = $error_message;
