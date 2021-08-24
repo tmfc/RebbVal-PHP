@@ -106,22 +106,19 @@ class BuildInFunctions
 
     public function checkLeapYear($obj): bool
     {
-        if(is_a($obj, \DateTimeImmutable::class)){
+        if (is_a($obj, \DateTimeImmutable::class)) {
             return date("L", $obj->getTimestamp());
-        }
-        else
-        {
+        } else {
             $this->error = "ObjectTypeNotDate";
             return false;
         }
     }
+
     public function checkLeapDay($obj): bool
     {
-        if(is_a($obj, \DateTimeImmutable::class)){
+        if (is_a($obj, \DateTimeImmutable::class)) {
             return date("L", $obj->getTimestamp()) && $obj->format('m-d') == "02-29";
-        }
-        else
-        {
+        } else {
             $this->error = "ObjectTypeNotDate";
             return false;
         }
@@ -233,6 +230,57 @@ class BuildInFunctions
     public function checkMac($obj)
     {
         $regex = "/^((?:[a-fA-F0-9]{2}[:-]){5}[a-fA-F0-9]{2})$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkDomain($obj)
+    {
+        $regex = "/^(?:(?:(?<thld>[\\w\\-]*)(?:\\.))?(?<sld>[\\w\\-]*))\\.(?<tld>\\w*)(?:\\:(?<port>\\d*))?$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+
+    public function checkEmail($obj)
+    {
+        $regex = "/^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkIpv4($obj)
+    {
+        $regex = "/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkIpv6($obj)
+    {
+        $regex = "/^([\da-fA-F]{1,4}(?::[\da-fA-F]{1,4}){7}|::|:(?::[\da-fA-F]{1,4}){1,6}|[\da-fA-F]{1,4}:(?::[\da-fA-F]{1,4}){1,5}|(?:[\da-fA-F]{1,4}:){2}(?::[\da-fA-F]{1,4}){1,4}|(?:[\da-fA-F]{1,4}:){3}(?::[\da-fA-F]{1,4}){1,3}|(?:[\da-fA-F]{1,4}:){4}(?::[\da-fA-F]{1,4}){1,2}|(?:[\da-fA-F]{1,4}:){5}:[\da-fA-F]{1,4}|(?:[\da-fA-F]{1,4}:){1,6}:)$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkPrivateIp($obj)
+    {
+        if (is_string($obj)) {
+            $regex_ipv4 = "/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/";
+            $regex_ipv6 = "/^([\da-fA-F]{1,4}(?::[\da-fA-F]{1,4}){7}|::|:(?::[\da-fA-F]{1,4}){1,6}|[\da-fA-F]{1,4}:(?::[\da-fA-F]{1,4}){1,5}|(?:[\da-fA-F]{1,4}:){2}(?::[\da-fA-F]{1,4}){1,4}|(?:[\da-fA-F]{1,4}:){3}(?::[\da-fA-F]{1,4}){1,3}|(?:[\da-fA-F]{1,4}:){4}(?::[\da-fA-F]{1,4}){1,2}|(?:[\da-fA-F]{1,4}:){5}:[\da-fA-F]{1,4}|(?:[\da-fA-F]{1,4}:){1,6}:)$/";
+
+            if ($this->checkRegex($obj, $regex_ipv4)) {
+                $regex_ipv4_private = "/^(10(\\.(([0-9]?[0-9])|(1[0-9]?[0-9])|(2[0-4]?[0-9])|(25[0-5]))){3})|(172\\.((1[6-9])|(2[0-9])(3[0-1]))(\\.(([0-9]?[0-9])|(1[0-9]?[0-9])|(2[0-4]?[0-9])|(25[0-5]))){2})|(192\\.168(\\.(([0-9]?[0-9])|(1[0-9]?[0-9])|(2[0-4]?[0-9])|(25[0-5]))){2})|(127(\\.(([0-9]?[0-9])|(1[0-9]?[0-9])|(2[0-4]?[0-9])|(25[0-5]))){3})$/";
+                return $this->checkRegex($obj, $regex_ipv4_private);
+            } else if ($this->checkRegex($obj, $regex_ipv6)) {
+                return str_starts_with($obj, "FEC0:");
+            } else {
+                return false;
+            }
+        } else {
+            $this->error = "ObjectTypeNotString";
+            return false;
+        }
+    }
+
+    public function checkUrl($obj)
+    {
+        $regex = "/^((https?:)(\\/\\/\\/?)([\\w]*(?::[\\w]*)?@)?([\\d\\w\\.-]+)(?::(\\d+))?)?([\\/\\\\\\w\\.()-]*)?(?:([?][^#]*)?(#.*)?)*$/";
         return $this->checkRegex($obj, $regex);
     }
 
