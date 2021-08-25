@@ -473,6 +473,7 @@ class EvalVisitor extends RebbValBaseVisitor
             $this->error = "ObjectTypeNotSupported";
         }
     }
+
     #endregion
 
     public function visitIs(Context\IsContext $context)
@@ -490,16 +491,37 @@ class EvalVisitor extends RebbValBaseVisitor
         $this->setValue($context, $result);
     }
 
-    public function visitMatch(Context\MatchContext $ctx)
+    public function visitIsCustom(Context\IsCustomContext $context)
+    {
+        $key = $context->type->getText();
+        if (array_key_exists($key, $this->customFunctions)) {
+            $f = $this->customFunctions[$key];
+
+            try {
+
+
+                if ($f($this->obj))
+                    $this->setValue($context, true);
+                else
+                    $this->setValue($context, false);
+            } catch (\Exception $ex) {
+                $this->setValue($context, false);
+                $this->error = $ex->getMessage();
+            }
+        } else
+            $this->setValue($context, false);
+    }
+
+    public function visitMatch(Context\MatchContext $context)
     {
         if (is_string($this->obj)) {
-            $exprValue = $ctx->regex->getText();
+            $exprValue = $context->regex->getText();
             $regex = $exprValue;
-            $result =preg_match_all($regex, $this->obj, $matches, PREG_SET_ORDER, 0);
-            if($result > 0)
-                $this->setValue($ctx, true);
+            $result = preg_match_all($regex, $this->obj, $matches, PREG_SET_ORDER, 0);
+            if ($result > 0)
+                $this->setValue($context, true);
             else
-                $this->setValue($ctx, false);
+                $this->setValue($context, false);
         } else {
             $this->valid = false;
             $this->error = "ObjectTypeNotSupported";
