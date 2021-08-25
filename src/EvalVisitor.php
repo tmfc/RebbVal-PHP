@@ -188,7 +188,7 @@ class EvalVisitor extends RebbValBaseVisitor
     {
         $str = $context->getText();
         if ($str != null)
-            $this->setValue($context, substr($str, 1, strlen($str) - 1));
+            $this->setValue($context, trim($str, "'"));
     }
 
     /** Number */
@@ -270,41 +270,35 @@ class EvalVisitor extends RebbValBaseVisitor
         $result = false;
         $this->visit($context->expression());
         $exprValue = $this->getValue($context->expression());
-        if (is_string($this->obj) && is_string($exprValue))
-        {
+        if (is_string($this->obj) && is_string($exprValue)) {
 
-            if($context->op->getType() == RebbValParser::EQUAL)
+            if ($context->op->getType() == RebbValParser::EQUAL)
                 $result = $this->obj == $exprValue;
-            else
-            {
+            else {
                 $result = false;
                 $this->error = "Unsupported Operation";
             }
             $this->setValue($context, $result);
-        }
-        else if((is_numeric($this->obj) && is_numeric($exprValue))
-        || ($this->is_date($this->obj) && $this->is_date($exprValue))) {
+        } else if ((is_numeric($this->obj) && is_numeric($exprValue))
+            || ($this->is_date($this->obj) && $this->is_date($exprValue))) {
             $result = $this->doCompare($this->obj, $exprValue, $context->op->getType());
             $this->setValue($context, $result);
-        }
-        else
-        {
+        } else {
             $this->setValue($context, false);
             $this->error = "UnsupportedObjectType";
         }
         return null;
     }
-    
-    private function doCompare($obj,$v, $t): bool
+
+    private function doCompare($obj, $v, $t): bool
     {
         $result = false;
-        if($this->is_date($obj))
-        {
+        if ($this->is_date($obj)) {
             $obj = $obj->getTimestamp();
             $v = $v->getTimestamp();
         }
 
-        switch($t) {
+        switch ($t) {
             case RebbValParser::EQUAL:
                 $result = $obj == $v;
                 break;
@@ -365,41 +359,37 @@ class EvalVisitor extends RebbValBaseVisitor
         $this->visit($context->expression(1));
         $l_value = $this->getValue($context->expression(0));
         $r_value = $this->getValue($context->expression(1));
-        if((is_numeric($l_value) && is_numeric($r_value) && is_numeric($this->obj))
+        if ((is_numeric($l_value) && is_numeric($r_value) && is_numeric($this->obj))
             || ($this->is_date($this->obj)
                 && $this->is_date($l_value)
-                && $this->is_date($r_value)))
-        {
+                && $this->is_date($r_value))) {
             $result = $this->doIntervalCompare($this->obj, $l_value, $r_value, $context->start->getText(), $context->end->getText());
             $this->setValue($context, $result);
-        }
-
-        else{
+        } else {
             $this->setValue($context, false);
             $this->error = "UnsupportedObjectType";
         }
     }
 
-    private function doIntervalCompare($obj, $l,  $r,  $start, $end): bool
+    private function doIntervalCompare($obj, $l, $r, $start, $end): bool
     {
-        if($this->is_date($obj))
-        {
+        if ($this->is_date($obj)) {
             $obj = $obj->getTimestamp();
             $l = $l->getTimestamp();
             $r = $r->getTimestamp();
         }
 
         $startResult = false;
-        if($start == "(" || $start == "]")
+        if ($start == "(" || $start == "]")
             $startResult = $obj > $l;
-        if($start == "[")
+        if ($start == "[")
             $startResult = $obj >= $l;
 
         $endResult = false;
-        if($startResult){
-            if($end == ")" || $end == "[")
+        if ($startResult) {
+            if ($end == ")" || $end == "[")
                 $endResult = $obj < $r;
-            if($end == "]")
+            if ($end == "]")
                 $endResult = $obj <= $r;
         }
 
@@ -407,22 +397,83 @@ class EvalVisitor extends RebbValBaseVisitor
     }
     //endregion
 
-    //region Contain/In
+    //region Contain/In/Position
+    public function visitContains(Context\ContainsContext $context)
+    {
+        $this->visit($context->expression());
+        $exprValue = $this->getValue($context->expression());
+        if (is_string($this->obj) && is_string($exprValue)) {
+            if (strpos($this->obj, $exprValue))
+                $this->setValue($context, true);
+            else
+                $this->setValue($context, false);
+        } else {
+            $this->setValue($context, false);
+            $this->error = "ObjectTypeNotSupported";
+        }
+    }
+
     public function visitIn(Context\InContext $context)
     {
         $this->visit($context->expression());
         $exprValue = $this->getValue($context->expression());
         if (is_string($this->obj) && is_string($exprValue)) {
-            $this->setValue($context, strpos($this->obj, $exprValue) !== false);
+            $this->setValue($context, strpos($exprValue, $this->obj) !== false);
         } else if (is_numeric($this->obj) && is_array($exprValue)) {
             $this->setValue($context, in_array($this->obj, $exprValue));
         } else {
             $this->setValue($context, false);
-            $this->error = "UnsupportedObjectType";
+            $this->error = "ObjectTypeNotSupported";
+        }
+    }
+
+    public function visitStringPosition(Context\StringPositionContext $context)
+    {
+        $exprContext = $context->expression();
+        $this->visit($exprContext);
+        $exprValue = $this->getValue($exprContext);
+        if (is_string($this->obj) && is_string($exprValue)) {
+            $result = false;
+            $len = strlen($exprValue);
+            if ($context->op->getText() == "starts") {
+                $result = substr($this->obj, 0, $len) === $exprValue;
+            } else if ($context->op->getText() == "ends") {
+                $result = substr($this->obj, -$len) === $exprValue;
+            }
+            $this->setValue($context, $result);
+        } else {
+            $this->setValue($context, false);
+            $this->error = "ObjectTypeNotSupported";
         }
     }
 
     //endregion
+
+    //region String
+    public function visitNotEmpty(Context\NotEmptyContext $context)
+    {
+        if (is_string($this->obj))
+            $this->setValue($context, !$this->obj == "");
+        else {
+            $this->setValue($context, false);
+            $this->error = "ObjectTypeNotSupported";
+        }
+    }
+
+    public function visitMaxLength(Context\MaxLengthContext $context)
+    {
+        $exprValue = $context->NumbericLiteral()->getText();
+        if (is_string($this->obj)) {
+            if (mb_strlen($this->obj) <= $exprValue)
+                $this->setValue($context, true);
+            else
+                $this->setValue($context, false);
+        } else {
+            $this->setValue($context, false);
+            $this->error = "ObjectTypeNotSupported";
+        }
+    }
+    #endregion
 
     public function visitIs(Context\IsContext $context)
     {
@@ -430,6 +481,30 @@ class EvalVisitor extends RebbValBaseVisitor
         $result = $b->check($context->type->getType(), $this->obj);
 
         $this->setValue($context, $result);
+    }
+
+    public function visitIsHex(Context\IsHexContext $context)
+    {
+        $b = new BuildInFunctions($this->config);
+        $result = $b->checkHex($context->type->getType(), $this->obj);
+        $this->setValue($context, $result);
+    }
+
+    public function visitMatch(Context\MatchContext $ctx)
+    {
+        if (is_string($this->obj)) {
+            $exprValue = $ctx->regex->getText();
+            $regex = $exprValue;
+            $result =preg_match_all($regex, $this->obj, $matches, PREG_SET_ORDER, 0);
+            if($result > 0)
+                $this->setValue($ctx, true);
+            else
+                $this->setValue($ctx, false);
+        } else {
+            $this->valid = false;
+            $this->error = "ObjectTypeNotSupported";
+        }
+
     }
 
 }
