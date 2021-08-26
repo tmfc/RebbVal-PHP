@@ -296,6 +296,61 @@ class BuildInFunctions
             return false;
     }
 
+    public function checkPercentage($obj)
+    {
+        $regex = "/^-?[1][0][0](\.[0]{0,2})?%$|^-?[1-9]?[0-9](\.[0-9]{0,2})?%$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkBase64($obj)
+    {
+        $regex = "/^(?:([a-z0-9A-Z+\/]){4})*([a-z0-9A-Z+\/])(?:([a-z0-9A-Z+\/])==|([a-z0-9A-Z+\/]){2}=|([a-z0-9A-Z+\/]){3})$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkNumber($obj)
+    {
+        $regex = "/^(?<![\w.])[+-]?(?:\d+\.\d+|\d+\.|\.\d+|\d+)(?:[eE][+-]?\d+)?(?![\w.])$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkInt($obj)
+    {
+        $regex = "/^[-+]?\d+$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkFloat($obj)
+    {
+        $regex = "/^(?<![\w.])[+-]?(?:\d+\.\d+|\d+\.|\.\d+)(?![\w.])$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+
+    public function checkHexColor($obj)
+    {
+        $regex = "/^#(([\da-fA-F]{3}){1,2}|([\da-fA-F]{4}){1,2})$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkHexNumber($obj)
+    {
+        $regex = "/^(?:0[xX])?[\da-fA-F]+$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkPhone($obj)
+    {
+        $regex = "/^(0\d{2}-\d{8}(-\d{1,4})?)|(0\d{3}-\d{7,8}(-\d{1,4})?)$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
+    public function checkMobile($obj)
+    {
+        $regex = "/^1[3-9]\d{9}$/";
+        return $this->checkRegex($obj, $regex);
+    }
+
     private function checkRegex($obj, $regex)
     {
         if (is_string($obj)) {
