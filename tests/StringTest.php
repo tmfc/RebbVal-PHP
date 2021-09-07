@@ -17,7 +17,6 @@ class StringTest extends \Codeception\Test\Unit
     }
 
     // tests
-
     public function testStringEqual()
     {
         $v = new RebbVal();
