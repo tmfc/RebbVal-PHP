@@ -46,7 +46,7 @@ class EvalVisitor extends RebbValBaseVisitor
 
     public function setObject($obj)
     {
-        $this->valid = true;
+        $this->valid = false;
         $this->error = "";
 
         $this->obj = $obj;
@@ -72,9 +72,9 @@ class EvalVisitor extends RebbValBaseVisitor
         return $this->values[$node->toString()];
     }
 
-    public function registerCustomValidator($name, $class)
+    public function registerCustomValidator($name, $func)
     {
-        $this->customFunctions[$name] = $class;
+        $this->customFunctions[$name] = $func;
     }
 
     private function initConfig($global_config = null)

@@ -162,7 +162,7 @@ class BuildInFunctions
 
     public function checkISBN($obj)
     {
-        $regex = "/^(\\d{13})$|^(978\\-\\d\\-\\d{3}\\-\\d{5}\\-\\d)$/";
+        $regex = '/^(?:ISBN(?:-1[03])?:?●)?(?=[-0-9●]{17}$|[-0-9X●]{13}$|[0-9X]{10}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?(?:[0-9]+[-●]?){2}[0-9X]$/m';
         $result = $this->checkRegex($obj, $regex);
         if ($result) {
             $isbn = str_replace("-", "", $obj);

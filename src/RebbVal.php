@@ -61,9 +61,9 @@ class RebbVal
         }
     }
 
-    public function registerCustomValidator($name, $class)
+    public function registerCustomValidator($name, $func)
     {
-        $this->engine->registerCustomValidator($name, $class);
+        $this->engine->registerCustomValidator($name, $func);
     }
 
     public function addConfig($key, $value)
