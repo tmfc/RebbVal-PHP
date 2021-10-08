@@ -39,7 +39,9 @@ class StringTest extends \Codeception\Test\Unit
     {
         $v = new RebbVal();
         assertTrue($v->val("This string", "starts with 'This'"));
+        assertFalse($v->val("That string", "starts with 'This'"));
         assertTrue($v->val("This string", "ends with 'string'"));
+        assertFalse($v->val("This string", "ends with 'foobar'"));
         assertFalse($v->val("This string", "starts with 'This very long string'"));
         assertFalse($v->val("This string", "ends with 'a very long string'"));
     }
