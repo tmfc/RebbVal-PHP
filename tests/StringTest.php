@@ -40,6 +40,8 @@ class StringTest extends \Codeception\Test\Unit
         $v = new RebbVal();
         assertTrue($v->val("This string", "starts with 'This'"));
         assertTrue($v->val("This string", "ends with 'string'"));
+        assertFalse($v->val("This string", "starts with 'This very long string'"));
+        assertFalse($v->val("This string", "ends with 'a very long string'"));
     }
 
     public function testStringIn()
@@ -47,7 +49,6 @@ class StringTest extends \Codeception\Test\Unit
         $v = new RebbVal();
         assertTrue($v->val("string", "in 'a longer string'"));
     }
-
 
     public function testStringContains()
     {
@@ -69,7 +70,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("a very looooooooooooooong string", "max length 15"));
     }
 
-
     public function testStringPercentage()
     {
         $v = new RebbVal();
@@ -78,7 +78,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("1000%", "is percentage"));
         assertTrue($v->val("-10.01%", "is percentage"));
     }
-
 
     public function testStringBase64()
     {
@@ -92,7 +91,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("YW55IGNhcm5hbCBwbGVh=", "is base64"));
         assertFalse($v->val("YW55IGNhcm5hbCBwbGVhc===", "is base64"));
     }
-
 
     public function testStringNumber()
     {
@@ -125,7 +123,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("123abc", "is int"));
     }
 
-
     public function testStringFloat()
     {
         $v = new RebbVal();
@@ -140,7 +137,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("123abc", "is float"));
     }
 
-
     public function testHexColor()
     {
         $v = new RebbVal();
@@ -152,7 +148,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("ffff", "is hex color"));
         assertFalse($v->val("bcdefg", "is hex color"));
     }
-
 
     public function testHexNumber()
     {
@@ -166,7 +161,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("bcdefg", "is hex number"));
     }
 
-
     public function testPhone()
     {
         $v = new RebbVal();
@@ -176,7 +170,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("58910293", "is phone"));
     }
 
-
     public function testMobile()
     {
         $v = new RebbVal();
@@ -185,7 +178,6 @@ class StringTest extends \Codeception\Test\Unit
         assertFalse($v->val("12132132123", "is mobile"));
         assertFalse($v->val("021-59595959", "is mobile"));
     }
-
 
     public function testMatch()
     {

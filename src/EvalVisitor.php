@@ -435,10 +435,14 @@ class EvalVisitor extends RebbValBaseVisitor
         if (is_string($this->obj) && is_string($exprValue)) {
             $result = false;
             $len = strlen($exprValue);
-            if ($context->op->getText() == "starts") {
-                $result = substr($this->obj, 0, $len) === $exprValue;
-            } else if ($context->op->getText() == "ends") {
-                $result = substr($this->obj, -$len) === $exprValue;
+            if($len > strlen($this->obj))
+                $result = false;
+            else{
+                if ($context->op->getText() == "starts") {
+                    $result = substr($this->obj, 0, $len) === $exprValue;
+                } else if ($context->op->getText() == "ends") {
+                    $result = substr($this->obj, -$len) === $exprValue;
+                }
             }
             $this->setValue($context, $result);
         } else {
@@ -523,10 +527,8 @@ class EvalVisitor extends RebbValBaseVisitor
             else
                 $this->setValue($context, false);
         } else {
-            $this->valid = false;
+            $this->setValue($context, false);
             $this->error = "ObjectTypeNotSupported";
         }
-
     }
-
 }
