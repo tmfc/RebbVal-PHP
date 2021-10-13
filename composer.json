@@ -1,0 +1,18 @@
+{
+  "name": "rebb-tech/rebbval-php",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": [
+    "LGPL-2.1 License"
+  ],
+  "authors": [
+    {
+      "name": "William Jin",
+      "email": "jinwei@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "antlr/antlr4-php-runtime":"*"
+  }
+}
