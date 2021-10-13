@@ -3,7 +3,7 @@
   "description": "description",
   "minimum-stability": "stable",
   "license": [
-    "LGPL-2.1 License"
+    "LGPL-2.1-only"
   ],
   "authors": [
     {
