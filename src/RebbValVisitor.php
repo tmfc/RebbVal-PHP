@@ -153,6 +153,16 @@ interface RebbValVisitor extends ParseTreeVisitor
 	public function visitIs(Context\IsContext $context);
 
 	/**
+	 * Visit a parse tree produced by the `ArrayIsUnique` labeled alternative
+	 * in {@see RebbValParser::expression()}.
+	 *
+	 * @param Context\ArrayIsUniqueContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitArrayIsUnique(Context\ArrayIsUniqueContext $context);
+
+	/**
 	 * Visit a parse tree produced by the `IsHex` labeled alternative
 	 * in {@see RebbValParser::expression()}.
 	 *

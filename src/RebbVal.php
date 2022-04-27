@@ -3,7 +3,6 @@
 namespace Rebb\Val;
 
 
-use Antlr\Antlr4\Runtime\CharStream;
 use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\InputStream;
 use DateTimeImmutable;
@@ -101,6 +100,16 @@ class RebbVal
             {
                 if(is_a($object, DateTimeImmutable::class))
                     $error_message = $object->format('Y-m-d H:i:s') . " " . $condition . " failed";
+                else if(is_array($object))
+                {
+                    if(count($object) > 5)
+                    {
+                        $sliced_array = array_slice($object, 0, 5, true);
+                        $error_message = '[' . implode(', ', $sliced_array). ',...]' . " " . $condition . " failed";
+                    }
+                    else
+                        $error_message = '[' . implode(', ', $object). ']' . " " . $condition . " failed" ;//$object . " " . $condition . " failed";
+                }
                 else
                     $error_message = $object . " " . $condition . " failed" ;//$object . " " . $condition . " failed";
 

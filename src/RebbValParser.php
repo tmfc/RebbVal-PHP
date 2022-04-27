@@ -27,17 +27,17 @@ namespace Rebb\Val {
                T__6 = 7, T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, 
                T__12 = 13, T__13 = 14, T__14 = 15, T__15 = 16, T__16 = 17, 
                T__17 = 18, T__18 = 19, T__19 = 20, T__20 = 21, T__21 = 22, 
-               T__22 = 23, RegularExpressionLiteral = 24, StringLiteral = 25, 
-               NumbericLiteral = 26, DateLiteral = 27, TimeLiteral = 28, 
-               DIGITS = 29, YEAR = 30, MONTH = 31, DAY = 32, HOUR = 33, 
-               MINUTE = 34, SECOND = 35, EQUAL = 36, NEQUAL = 37, LT = 38, 
-               LTE = 39, GT = 40, GTE = 41, OLDER = 42, YOUNGER = 43, TRUE = 44, 
-               FALSE = 45, LEAPYEAR = 46, LEAPDAY = 47, DOMAIN = 48, EMAIL = 49, 
-               IPV4 = 50, IPV6 = 51, PRIVATEIP = 52, URL = 53, MAC = 54, 
-               IMEI = 55, IMEISV = 56, ISBN = 57, PERCENTAGE = 58, BASE64 = 59, 
-               NUMBER = 60, INT = 61, FLOAT = 62, COLOR = 63, PHONE = 64, 
-               MOBILE = 65, UUID = 66, GBCODE = 67, ID = 68, PASSPORT = 69, 
-               CustomFunction = 70, NEWLINE = 71, WS = 72;
+               T__22 = 23, T__23 = 24, RegularExpressionLiteral = 25, StringLiteral = 26, 
+               NumbericLiteral = 27, DateLiteral = 28, TimeLiteral = 29, 
+               DIGITS = 30, YEAR = 31, MONTH = 32, DAY = 33, HOUR = 34, 
+               MINUTE = 35, SECOND = 36, EQUAL = 37, NEQUAL = 38, LT = 39, 
+               LTE = 40, GT = 41, GTE = 42, OLDER = 43, YOUNGER = 44, TRUE = 45, 
+               FALSE = 46, LEAPYEAR = 47, LEAPDAY = 48, DOMAIN = 49, EMAIL = 50, 
+               IPV4 = 51, IPV6 = 52, PRIVATEIP = 53, URL = 54, MAC = 55, 
+               IMEI = 56, IMEISV = 57, ISBN = 58, PERCENTAGE = 59, BASE64 = 60, 
+               NUMBER = 61, INT = 62, FLOAT = 63, COLOR = 64, PHONE = 65, 
+               MOBILE = 66, UUID = 67, GBCODE = 68, ID = 69, PASSPORT = 70, 
+               CustomFunction = 71, NEWLINE = 72, WS = 73;
 
 		public const RULE_unaryTests = 0, RULE_unaryTest = 1, RULE_positiveUnaryTest = 2, 
                RULE_expression = 3, RULE_arrayLiteral = 4;
@@ -54,15 +54,15 @@ namespace Rebb\Val {
 		 */
 		private const LITERAL_NAMES = [
 		    null, "'and'", "'or'", "'not'", "'('", "')'", "'-'", "'between'", 
-		    "'in'", "'contains'", "'empty'", "'max'", "'length'", "'is'", "'hex'", 
-		    "'match'", "'than'", "'starts'", "'ends'", "'with'", "']'", "'['", 
-		    "'..'", "','", null, null, null, null, null, null, null, null, null, 
-		    null, null, null, "'='", "'!='", "'<'", "'<='", "'>'", "'>='", "'older'", 
-		    "'younger'", "'true'", "'false'", "'leapyear'", "'leapday'", "'domain'", 
-		    "'email'", "'ipv4'", "'ipv6'", "'private_ip'", "'url'", "'MAC'", "'IMEI'", 
-		    "'IMEISV'", "'ISBN'", "'percentage'", "'base64'", "'number'", "'int'", 
-		    "'float'", "'color'", "'phone'", "'mobile'", "'UUID'", "'gbcode'", 
-		    "'ID'", "'passport'"
+		    "'in'", "'contains'", "'empty'", "'max'", "'length'", "'is'", "'unique'", 
+		    "'hex'", "'match'", "'than'", "'starts'", "'ends'", "'with'", "']'", 
+		    "'['", "'..'", "','", null, null, null, null, null, null, null, null, 
+		    null, null, null, null, "'='", "'!='", "'<'", "'<='", "'>'", "'>='", 
+		    "'older'", "'younger'", "'true'", "'false'", "'leapyear'", "'leapday'", 
+		    "'domain'", "'email'", "'ipv4'", "'ipv6'", "'private_ip'", "'url'", 
+		    "'MAC'", "'IMEI'", "'IMEISV'", "'ISBN'", "'percentage'", "'base64'", 
+		    "'number'", "'int'", "'float'", "'color'", "'phone'", "'mobile'", 
+		    "'UUID'", "'gbcode'", "'ID'", "'passport'"
 		];
 
 		/**
@@ -71,7 +71,7 @@ namespace Rebb\Val {
 		private const SYMBOLIC_NAMES = [
 		    null, null, null, null, null, null, null, null, null, null, null, 
 		    null, null, null, null, null, null, null, null, null, null, null, 
-		    null, null, "RegularExpressionLiteral", "StringLiteral", "NumbericLiteral", 
+		    null, null, null, "RegularExpressionLiteral", "StringLiteral", "NumbericLiteral", 
 		    "DateLiteral", "TimeLiteral", "DIGITS", "YEAR", "MONTH", "DAY", "HOUR", 
 		    "MINUTE", "SECOND", "EQUAL", "NEQUAL", "LT", "LTE", "GT", "GTE", "OLDER", 
 		    "YOUNGER", "TRUE", "FALSE", "LEAPYEAR", "LEAPDAY", "DOMAIN", "EMAIL", 
@@ -86,7 +86,7 @@ namespace Rebb\Val {
 		 */
 		private const SERIALIZED_ATN =
 			"\u{3}\u{608B}\u{A72A}\u{8133}\u{B9ED}\u{417C}\u{3BE7}\u{7786}\u{5964}" .
-		    "\u{3}\u{4A}\u{60}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
+		    "\u{3}\u{4B}\u{62}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
 		    "\u{9}\u{4}\u{4}\u{5}\u{9}\u{5}\u{4}\u{6}\u{9}\u{6}\u{3}\u{2}\u{3}" .
 		    "\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{2}" .
 		    "\u{3}\u{2}\u{7}\u{2}\u{16}\u{A}\u{2}\u{C}\u{2}\u{E}\u{2}\u{19}\u{B}" .
@@ -98,67 +98,69 @@ namespace Rebb\Val {
 		    "\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}" .
 		    "\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}" .
 		    "\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}" .
-		    "\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{5}" .
-		    "\u{5}\u{53}\u{A}\u{5}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{7}" .
-		    "\u{6}\u{59}\u{A}\u{6}\u{C}\u{6}\u{E}\u{6}\u{5C}\u{B}\u{6}\u{3}\u{6}" .
-		    "\u{3}\u{6}\u{3}\u{6}\u{2}\u{3}\u{2}\u{7}\u{2}\u{4}\u{6}\u{8}\u{A}" .
-		    "\u{2}\u{9}\u{3}\u{2}\u{26}\u{2B}\u{4}\u{2}\u{2E}\u{40}\u{42}\u{47}" .
-		    "\u{4}\u{2}\u{3E}\u{3E}\u{41}\u{41}\u{3}\u{2}\u{2C}\u{2D}\u{3}\u{2}" .
-		    "\u{13}\u{14}\u{4}\u{2}\u{6}\u{6}\u{16}\u{17}\u{4}\u{2}\u{7}\u{7}\u{16}" .
-		    "\u{17}\u{2}\u{72}\u{2}\u{C}\u{3}\u{2}\u{2}\u{2}\u{4}\u{24}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{6}\u{26}\u{3}\u{2}\u{2}\u{2}\u{8}\u{52}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{A}\u{54}\u{3}\u{2}\u{2}\u{2}\u{C}\u{D}\u{8}\u{2}\u{1}\u{2}" .
-		    "\u{D}\u{E}\u{5}\u{4}\u{3}\u{2}\u{E}\u{17}\u{3}\u{2}\u{2}\u{2}\u{F}" .
-		    "\u{10}\u{C}\u{5}\u{2}\u{2}\u{10}\u{11}\u{7}\u{3}\u{2}\u{2}\u{11}\u{16}" .
-		    "\u{5}\u{4}\u{3}\u{2}\u{12}\u{13}\u{C}\u{4}\u{2}\u{2}\u{13}\u{14}\u{7}" .
-		    "\u{4}\u{2}\u{2}\u{14}\u{16}\u{5}\u{4}\u{3}\u{2}\u{15}\u{F}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{15}\u{12}\u{3}\u{2}\u{2}\u{2}\u{16}\u{19}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{17}\u{15}\u{3}\u{2}\u{2}\u{2}\u{17}\u{18}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{18}\u{3}\u{3}\u{2}\u{2}\u{2}\u{19}\u{17}\u{3}\u{2}\u{2}\u{2}\u{1A}" .
-		    "\u{25}\u{5}\u{6}\u{4}\u{2}\u{1B}\u{1D}\u{7}\u{5}\u{2}\u{2}\u{1C}\u{1E}" .
-		    "\u{7}\u{6}\u{2}\u{2}\u{1D}\u{1C}\u{3}\u{2}\u{2}\u{2}\u{1D}\u{1E}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{1E}\u{1F}\u{3}\u{2}\u{2}\u{2}\u{1F}\u{21}\u{5}\u{6}" .
-		    "\u{4}\u{2}\u{20}\u{22}\u{7}\u{7}\u{2}\u{2}\u{21}\u{20}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{21}\u{22}\u{3}\u{2}\u{2}\u{2}\u{22}\u{25}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{23}\u{25}\u{7}\u{8}\u{2}\u{2}\u{24}\u{1A}\u{3}\u{2}\u{2}\u{2}\u{24}" .
-		    "\u{1B}\u{3}\u{2}\u{2}\u{2}\u{24}\u{23}\u{3}\u{2}\u{2}\u{2}\u{25}\u{5}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{26}\u{27}\u{5}\u{8}\u{5}\u{2}\u{27}\u{7}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{28}\u{29}\u{9}\u{2}\u{2}\u{2}\u{29}\u{53}\u{5}\u{8}" .
-		    "\u{5}\u{2}\u{2A}\u{2B}\u{7}\u{9}\u{2}\u{2}\u{2B}\u{2C}\u{5}\u{8}\u{5}" .
-		    "\u{2}\u{2C}\u{2D}\u{7}\u{3}\u{2}\u{2}\u{2D}\u{2E}\u{5}\u{8}\u{5}\u{2}" .
-		    "\u{2E}\u{53}\u{3}\u{2}\u{2}\u{2}\u{2F}\u{30}\u{7}\u{A}\u{2}\u{2}\u{30}" .
-		    "\u{53}\u{5}\u{8}\u{5}\u{2}\u{31}\u{32}\u{7}\u{B}\u{2}\u{2}\u{32}\u{53}" .
-		    "\u{5}\u{8}\u{5}\u{2}\u{33}\u{34}\u{7}\u{5}\u{2}\u{2}\u{34}\u{53}\u{7}" .
-		    "\u{C}\u{2}\u{2}\u{35}\u{36}\u{7}\u{D}\u{2}\u{2}\u{36}\u{37}\u{7}\u{E}" .
-		    "\u{2}\u{2}\u{37}\u{53}\u{7}\u{1C}\u{2}\u{2}\u{38}\u{39}\u{7}\u{F}" .
-		    "\u{2}\u{2}\u{39}\u{53}\u{9}\u{3}\u{2}\u{2}\u{3A}\u{3B}\u{7}\u{F}\u{2}" .
-		    "\u{2}\u{3B}\u{3C}\u{7}\u{10}\u{2}\u{2}\u{3C}\u{53}\u{9}\u{4}\u{2}" .
-		    "\u{2}\u{3D}\u{3E}\u{7}\u{F}\u{2}\u{2}\u{3E}\u{53}\u{7}\u{48}\u{2}" .
-		    "\u{2}\u{3F}\u{40}\u{7}\u{11}\u{2}\u{2}\u{40}\u{53}\u{7}\u{1A}\u{2}" .
-		    "\u{2}\u{41}\u{42}\u{9}\u{5}\u{2}\u{2}\u{42}\u{43}\u{7}\u{12}\u{2}" .
-		    "\u{2}\u{43}\u{53}\u{5}\u{8}\u{5}\u{2}\u{44}\u{45}\u{9}\u{6}\u{2}\u{2}" .
-		    "\u{45}\u{46}\u{7}\u{15}\u{2}\u{2}\u{46}\u{53}\u{5}\u{8}\u{5}\u{2}" .
-		    "\u{47}\u{48}\u{9}\u{7}\u{2}\u{2}\u{48}\u{49}\u{5}\u{8}\u{5}\u{2}\u{49}" .
-		    "\u{4A}\u{7}\u{18}\u{2}\u{2}\u{4A}\u{4B}\u{5}\u{8}\u{5}\u{2}\u{4B}" .
-		    "\u{4C}\u{9}\u{8}\u{2}\u{2}\u{4C}\u{53}\u{3}\u{2}\u{2}\u{2}\u{4D}\u{53}" .
-		    "\u{5}\u{A}\u{6}\u{2}\u{4E}\u{53}\u{7}\u{1B}\u{2}\u{2}\u{4F}\u{53}" .
-		    "\u{7}\u{1C}\u{2}\u{2}\u{50}\u{53}\u{7}\u{1D}\u{2}\u{2}\u{51}\u{53}" .
-		    "\u{7}\u{1E}\u{2}\u{2}\u{52}\u{28}\u{3}\u{2}\u{2}\u{2}\u{52}\u{2A}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{52}\u{2F}\u{3}\u{2}\u{2}\u{2}\u{52}\u{31}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{52}\u{33}\u{3}\u{2}\u{2}\u{2}\u{52}\u{35}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{52}\u{38}\u{3}\u{2}\u{2}\u{2}\u{52}\u{3A}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{52}\u{3D}\u{3}\u{2}\u{2}\u{2}\u{52}\u{3F}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{52}\u{41}\u{3}\u{2}\u{2}\u{2}\u{52}\u{44}\u{3}\u{2}\u{2}\u{2}\u{52}" .
-		    "\u{47}\u{3}\u{2}\u{2}\u{2}\u{52}\u{4D}\u{3}\u{2}\u{2}\u{2}\u{52}\u{4E}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{52}\u{4F}\u{3}\u{2}\u{2}\u{2}\u{52}\u{50}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{52}\u{51}\u{3}\u{2}\u{2}\u{2}\u{53}\u{9}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{54}\u{55}\u{7}\u{17}\u{2}\u{2}\u{55}\u{5A}\u{7}\u{1C}" .
-		    "\u{2}\u{2}\u{56}\u{57}\u{7}\u{19}\u{2}\u{2}\u{57}\u{59}\u{7}\u{1C}" .
-		    "\u{2}\u{2}\u{58}\u{56}\u{3}\u{2}\u{2}\u{2}\u{59}\u{5C}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{5A}\u{58}\u{3}\u{2}\u{2}\u{2}\u{5A}\u{5B}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{5B}\u{5D}\u{3}\u{2}\u{2}\u{2}\u{5C}\u{5A}\u{3}\u{2}\u{2}\u{2}\u{5D}" .
-		    "\u{5E}\u{7}\u{16}\u{2}\u{2}\u{5E}\u{B}\u{3}\u{2}\u{2}\u{2}\u{9}\u{15}" .
-		    "\u{17}\u{1D}\u{21}\u{24}\u{52}\u{5A}";
+		    "\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}" .
+		    "\u{5}\u{3}\u{5}\u{5}\u{5}\u{55}\u{A}\u{5}\u{3}\u{6}\u{3}\u{6}\u{3}" .
+		    "\u{6}\u{3}\u{6}\u{7}\u{6}\u{5B}\u{A}\u{6}\u{C}\u{6}\u{E}\u{6}\u{5E}" .
+		    "\u{B}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{2}\u{3}\u{2}\u{7}\u{2}" .
+		    "\u{4}\u{6}\u{8}\u{A}\u{2}\u{9}\u{3}\u{2}\u{27}\u{2C}\u{4}\u{2}\u{2F}" .
+		    "\u{41}\u{43}\u{48}\u{4}\u{2}\u{3F}\u{3F}\u{42}\u{42}\u{3}\u{2}\u{2D}" .
+		    "\u{2E}\u{3}\u{2}\u{14}\u{15}\u{4}\u{2}\u{6}\u{6}\u{17}\u{18}\u{4}" .
+		    "\u{2}\u{7}\u{7}\u{17}\u{18}\u{2}\u{75}\u{2}\u{C}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{4}\u{24}\u{3}\u{2}\u{2}\u{2}\u{6}\u{26}\u{3}\u{2}\u{2}\u{2}\u{8}" .
+		    "\u{54}\u{3}\u{2}\u{2}\u{2}\u{A}\u{56}\u{3}\u{2}\u{2}\u{2}\u{C}\u{D}" .
+		    "\u{8}\u{2}\u{1}\u{2}\u{D}\u{E}\u{5}\u{4}\u{3}\u{2}\u{E}\u{17}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{F}\u{10}\u{C}\u{5}\u{2}\u{2}\u{10}\u{11}\u{7}\u{3}" .
+		    "\u{2}\u{2}\u{11}\u{16}\u{5}\u{4}\u{3}\u{2}\u{12}\u{13}\u{C}\u{4}\u{2}" .
+		    "\u{2}\u{13}\u{14}\u{7}\u{4}\u{2}\u{2}\u{14}\u{16}\u{5}\u{4}\u{3}\u{2}" .
+		    "\u{15}\u{F}\u{3}\u{2}\u{2}\u{2}\u{15}\u{12}\u{3}\u{2}\u{2}\u{2}\u{16}" .
+		    "\u{19}\u{3}\u{2}\u{2}\u{2}\u{17}\u{15}\u{3}\u{2}\u{2}\u{2}\u{17}\u{18}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{18}\u{3}\u{3}\u{2}\u{2}\u{2}\u{19}\u{17}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{1A}\u{25}\u{5}\u{6}\u{4}\u{2}\u{1B}\u{1D}\u{7}\u{5}" .
+		    "\u{2}\u{2}\u{1C}\u{1E}\u{7}\u{6}\u{2}\u{2}\u{1D}\u{1C}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{1D}\u{1E}\u{3}\u{2}\u{2}\u{2}\u{1E}\u{1F}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{1F}\u{21}\u{5}\u{6}\u{4}\u{2}\u{20}\u{22}\u{7}\u{7}\u{2}\u{2}\u{21}" .
+		    "\u{20}\u{3}\u{2}\u{2}\u{2}\u{21}\u{22}\u{3}\u{2}\u{2}\u{2}\u{22}\u{25}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{23}\u{25}\u{7}\u{8}\u{2}\u{2}\u{24}\u{1A}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{24}\u{1B}\u{3}\u{2}\u{2}\u{2}\u{24}\u{23}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{25}\u{5}\u{3}\u{2}\u{2}\u{2}\u{26}\u{27}\u{5}\u{8}\u{5}" .
+		    "\u{2}\u{27}\u{7}\u{3}\u{2}\u{2}\u{2}\u{28}\u{29}\u{9}\u{2}\u{2}\u{2}" .
+		    "\u{29}\u{55}\u{5}\u{8}\u{5}\u{2}\u{2A}\u{2B}\u{7}\u{9}\u{2}\u{2}\u{2B}" .
+		    "\u{2C}\u{5}\u{8}\u{5}\u{2}\u{2C}\u{2D}\u{7}\u{3}\u{2}\u{2}\u{2D}\u{2E}" .
+		    "\u{5}\u{8}\u{5}\u{2}\u{2E}\u{55}\u{3}\u{2}\u{2}\u{2}\u{2F}\u{30}\u{7}" .
+		    "\u{A}\u{2}\u{2}\u{30}\u{55}\u{5}\u{8}\u{5}\u{2}\u{31}\u{32}\u{7}\u{B}" .
+		    "\u{2}\u{2}\u{32}\u{55}\u{5}\u{8}\u{5}\u{2}\u{33}\u{34}\u{7}\u{5}\u{2}" .
+		    "\u{2}\u{34}\u{55}\u{7}\u{C}\u{2}\u{2}\u{35}\u{36}\u{7}\u{D}\u{2}\u{2}" .
+		    "\u{36}\u{37}\u{7}\u{E}\u{2}\u{2}\u{37}\u{55}\u{7}\u{1D}\u{2}\u{2}" .
+		    "\u{38}\u{39}\u{7}\u{F}\u{2}\u{2}\u{39}\u{55}\u{9}\u{3}\u{2}\u{2}\u{3A}" .
+		    "\u{3B}\u{7}\u{F}\u{2}\u{2}\u{3B}\u{55}\u{7}\u{10}\u{2}\u{2}\u{3C}" .
+		    "\u{3D}\u{7}\u{F}\u{2}\u{2}\u{3D}\u{3E}\u{7}\u{11}\u{2}\u{2}\u{3E}" .
+		    "\u{55}\u{9}\u{4}\u{2}\u{2}\u{3F}\u{40}\u{7}\u{F}\u{2}\u{2}\u{40}\u{55}" .
+		    "\u{7}\u{49}\u{2}\u{2}\u{41}\u{42}\u{7}\u{12}\u{2}\u{2}\u{42}\u{55}" .
+		    "\u{7}\u{1B}\u{2}\u{2}\u{43}\u{44}\u{9}\u{5}\u{2}\u{2}\u{44}\u{45}" .
+		    "\u{7}\u{13}\u{2}\u{2}\u{45}\u{55}\u{5}\u{8}\u{5}\u{2}\u{46}\u{47}" .
+		    "\u{9}\u{6}\u{2}\u{2}\u{47}\u{48}\u{7}\u{16}\u{2}\u{2}\u{48}\u{55}" .
+		    "\u{5}\u{8}\u{5}\u{2}\u{49}\u{4A}\u{9}\u{7}\u{2}\u{2}\u{4A}\u{4B}\u{5}" .
+		    "\u{8}\u{5}\u{2}\u{4B}\u{4C}\u{7}\u{19}\u{2}\u{2}\u{4C}\u{4D}\u{5}" .
+		    "\u{8}\u{5}\u{2}\u{4D}\u{4E}\u{9}\u{8}\u{2}\u{2}\u{4E}\u{55}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{4F}\u{55}\u{5}\u{A}\u{6}\u{2}\u{50}\u{55}\u{7}\u{1C}" .
+		    "\u{2}\u{2}\u{51}\u{55}\u{7}\u{1D}\u{2}\u{2}\u{52}\u{55}\u{7}\u{1E}" .
+		    "\u{2}\u{2}\u{53}\u{55}\u{7}\u{1F}\u{2}\u{2}\u{54}\u{28}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{54}\u{2A}\u{3}\u{2}\u{2}\u{2}\u{54}\u{2F}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{54}\u{31}\u{3}\u{2}\u{2}\u{2}\u{54}\u{33}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{54}\u{35}\u{3}\u{2}\u{2}\u{2}\u{54}\u{38}\u{3}\u{2}\u{2}\u{2}\u{54}" .
+		    "\u{3A}\u{3}\u{2}\u{2}\u{2}\u{54}\u{3C}\u{3}\u{2}\u{2}\u{2}\u{54}\u{3F}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{54}\u{41}\u{3}\u{2}\u{2}\u{2}\u{54}\u{43}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{54}\u{46}\u{3}\u{2}\u{2}\u{2}\u{54}\u{49}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{54}\u{4F}\u{3}\u{2}\u{2}\u{2}\u{54}\u{50}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{54}\u{51}\u{3}\u{2}\u{2}\u{2}\u{54}\u{52}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{54}\u{53}\u{3}\u{2}\u{2}\u{2}\u{55}\u{9}\u{3}\u{2}\u{2}\u{2}\u{56}" .
+		    "\u{57}\u{7}\u{18}\u{2}\u{2}\u{57}\u{5C}\u{7}\u{1D}\u{2}\u{2}\u{58}" .
+		    "\u{59}\u{7}\u{1A}\u{2}\u{2}\u{59}\u{5B}\u{7}\u{1D}\u{2}\u{2}\u{5A}" .
+		    "\u{58}\u{3}\u{2}\u{2}\u{2}\u{5B}\u{5E}\u{3}\u{2}\u{2}\u{2}\u{5C}\u{5A}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{5C}\u{5D}\u{3}\u{2}\u{2}\u{2}\u{5D}\u{5F}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{5E}\u{5C}\u{3}\u{2}\u{2}\u{2}\u{5F}\u{60}\u{7}\u{17}" .
+		    "\u{2}\u{2}\u{60}\u{B}\u{3}\u{2}\u{2}\u{2}\u{9}\u{15}\u{17}\u{1D}\u{21}" .
+		    "\u{24}\u{54}\u{5C}";
 
 		protected static $atn;
 		protected static $decisionToDFA;
@@ -411,7 +413,7 @@ namespace Rebb\Val {
 		    $this->enterRule($localContext, 6, self::RULE_expression);
 
 		    try {
-		        $this->setState(80);
+		        $this->setState(82);
 		        $this->errorHandler->sync($this);
 
 		        switch ($this->getInterpreter()->adaptivePredict($this->input, 5, $this->ctx)) {
@@ -498,7 +500,7 @@ namespace Rebb\Val {
 		        	    $localContext->type = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
 
-		        	    if (!((((($_la - 44)) & ~0x3f) === 0 && ((1 << ($_la - 44)) & ((1 << (self::TRUE - 44)) | (1 << (self::FALSE - 44)) | (1 << (self::LEAPYEAR - 44)) | (1 << (self::LEAPDAY - 44)) | (1 << (self::DOMAIN - 44)) | (1 << (self::EMAIL - 44)) | (1 << (self::IPV4 - 44)) | (1 << (self::IPV6 - 44)) | (1 << (self::PRIVATEIP - 44)) | (1 << (self::URL - 44)) | (1 << (self::MAC - 44)) | (1 << (self::IMEI - 44)) | (1 << (self::IMEISV - 44)) | (1 << (self::ISBN - 44)) | (1 << (self::PERCENTAGE - 44)) | (1 << (self::BASE64 - 44)) | (1 << (self::NUMBER - 44)) | (1 << (self::INT - 44)) | (1 << (self::FLOAT - 44)) | (1 << (self::PHONE - 44)) | (1 << (self::MOBILE - 44)) | (1 << (self::UUID - 44)) | (1 << (self::GBCODE - 44)) | (1 << (self::ID - 44)) | (1 << (self::PASSPORT - 44)))) !== 0))) {
+		        	    if (!((((($_la - 45)) & ~0x3f) === 0 && ((1 << ($_la - 45)) & ((1 << (self::TRUE - 45)) | (1 << (self::FALSE - 45)) | (1 << (self::LEAPYEAR - 45)) | (1 << (self::LEAPDAY - 45)) | (1 << (self::DOMAIN - 45)) | (1 << (self::EMAIL - 45)) | (1 << (self::IPV4 - 45)) | (1 << (self::IPV6 - 45)) | (1 << (self::PRIVATEIP - 45)) | (1 << (self::URL - 45)) | (1 << (self::MAC - 45)) | (1 << (self::IMEI - 45)) | (1 << (self::IMEISV - 45)) | (1 << (self::ISBN - 45)) | (1 << (self::PERCENTAGE - 45)) | (1 << (self::BASE64 - 45)) | (1 << (self::NUMBER - 45)) | (1 << (self::INT - 45)) | (1 << (self::FLOAT - 45)) | (1 << (self::PHONE - 45)) | (1 << (self::MOBILE - 45)) | (1 << (self::UUID - 45)) | (1 << (self::GBCODE - 45)) | (1 << (self::ID - 45)) | (1 << (self::PASSPORT - 45)))) !== 0))) {
 		        	    	    $localContext->type = $this->errorHandler->recoverInline($this);
 		        	    } else {
 		        	    	if ($this->input->LA(1) === Token::EOF) {
@@ -511,13 +513,22 @@ namespace Rebb\Val {
 		        	break;
 
 		        	case 8:
-		        	    $localContext = new Context\IsHexContext($localContext);
+		        	    $localContext = new Context\ArrayIsUniqueContext($localContext);
 		        	    $this->enterOuterAlt($localContext, 8);
 		        	    $this->setState(56);
 		        	    $this->match(self::T__12);
 		        	    $this->setState(57);
 		        	    $this->match(self::T__13);
+		        	break;
+
+		        	case 9:
+		        	    $localContext = new Context\IsHexContext($localContext);
+		        	    $this->enterOuterAlt($localContext, 9);
 		        	    $this->setState(58);
+		        	    $this->match(self::T__12);
+		        	    $this->setState(59);
+		        	    $this->match(self::T__14);
+		        	    $this->setState(60);
 
 		        	    $localContext->type = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
@@ -534,28 +545,28 @@ namespace Rebb\Val {
 		        	    }
 		        	break;
 
-		        	case 9:
+		        	case 10:
 		        	    $localContext = new Context\IsCustomContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 9);
-		        	    $this->setState(59);
+		        	    $this->enterOuterAlt($localContext, 10);
+		        	    $this->setState(61);
 		        	    $this->match(self::T__12);
-		        	    $this->setState(60);
+		        	    $this->setState(62);
 		        	    $localContext->type = $this->match(self::CustomFunction);
 		        	break;
 
-		        	case 10:
+		        	case 11:
 		        	    $localContext = new Context\MatchContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 10);
-		        	    $this->setState(61);
-		        	    $this->match(self::T__14);
-		        	    $this->setState(62);
+		        	    $this->enterOuterAlt($localContext, 11);
+		        	    $this->setState(63);
+		        	    $this->match(self::T__15);
+		        	    $this->setState(64);
 		        	    $localContext->regex = $this->match(self::RegularExpressionLiteral);
 		        	break;
 
-		        	case 11:
+		        	case 12:
 		        	    $localContext = new Context\AgeCompareContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 11);
-		        	    $this->setState(63);
+		        	    $this->enterOuterAlt($localContext, 12);
+		        	    $this->setState(65);
 
 		        	    $localContext->op = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
@@ -570,21 +581,21 @@ namespace Rebb\Val {
 		        	    	$this->errorHandler->reportMatch($this);
 		        	    	$this->consume();
 		        	    }
-		        	    $this->setState(64);
-		        	    $this->match(self::T__15);
-		        	    $this->setState(65);
+		        	    $this->setState(66);
+		        	    $this->match(self::T__16);
+		        	    $this->setState(67);
 		        	    $this->expression();
 		        	break;
 
-		        	case 12:
+		        	case 13:
 		        	    $localContext = new Context\StringPositionContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 12);
-		        	    $this->setState(66);
+		        	    $this->enterOuterAlt($localContext, 13);
+		        	    $this->setState(68);
 
 		        	    $localContext->op = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
 
-		        	    if (!($_la === self::T__16 || $_la === self::T__17)) {
+		        	    if (!($_la === self::T__17 || $_la === self::T__18)) {
 		        	    	    $localContext->op = $this->errorHandler->recoverInline($this);
 		        	    } else {
 		        	    	if ($this->input->LA(1) === Token::EOF) {
@@ -594,21 +605,21 @@ namespace Rebb\Val {
 		        	    	$this->errorHandler->reportMatch($this);
 		        	    	$this->consume();
 		        	    }
-		        	    $this->setState(67);
-		        	    $this->match(self::T__18);
-		        	    $this->setState(68);
+		        	    $this->setState(69);
+		        	    $this->match(self::T__19);
+		        	    $this->setState(70);
 		        	    $this->expression();
 		        	break;
 
-		        	case 13:
+		        	case 14:
 		        	    $localContext = new Context\IntervalContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 13);
-		        	    $this->setState(69);
+		        	    $this->enterOuterAlt($localContext, 14);
+		        	    $this->setState(71);
 
 		        	    $localContext->start = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
 
-		        	    if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::T__3) | (1 << self::T__19) | (1 << self::T__20))) !== 0))) {
+		        	    if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::T__3) | (1 << self::T__20) | (1 << self::T__21))) !== 0))) {
 		        	    	    $localContext->start = $this->errorHandler->recoverInline($this);
 		        	    } else {
 		        	    	if ($this->input->LA(1) === Token::EOF) {
@@ -618,18 +629,18 @@ namespace Rebb\Val {
 		        	    	$this->errorHandler->reportMatch($this);
 		        	    	$this->consume();
 		        	    }
-		        	    $this->setState(70);
-		        	    $this->expression();
-		        	    $this->setState(71);
-		        	    $this->match(self::T__21);
 		        	    $this->setState(72);
 		        	    $this->expression();
 		        	    $this->setState(73);
+		        	    $this->match(self::T__22);
+		        	    $this->setState(74);
+		        	    $this->expression();
+		        	    $this->setState(75);
 
 		        	    $localContext->end = $this->input->LT(1);
 		        	    $_la = $this->input->LA(1);
 
-		        	    if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::T__4) | (1 << self::T__19) | (1 << self::T__20))) !== 0))) {
+		        	    if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::T__4) | (1 << self::T__20) | (1 << self::T__21))) !== 0))) {
 		        	    	    $localContext->end = $this->errorHandler->recoverInline($this);
 		        	    } else {
 		        	    	if ($this->input->LA(1) === Token::EOF) {
@@ -641,38 +652,38 @@ namespace Rebb\Val {
 		        	    }
 		        	break;
 
-		        	case 14:
+		        	case 15:
 		        	    $localContext = new Context\ArrayContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 14);
-		        	    $this->setState(75);
+		        	    $this->enterOuterAlt($localContext, 15);
+		        	    $this->setState(77);
 		        	    $this->arrayLiteral();
 		        	break;
 
-		        	case 15:
+		        	case 16:
 		        	    $localContext = new Context\StringContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 15);
-		        	    $this->setState(76);
+		        	    $this->enterOuterAlt($localContext, 16);
+		        	    $this->setState(78);
 		        	    $this->match(self::StringLiteral);
 		        	break;
 
-		        	case 16:
+		        	case 17:
 		        	    $localContext = new Context\NumberContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 16);
-		        	    $this->setState(77);
+		        	    $this->enterOuterAlt($localContext, 17);
+		        	    $this->setState(79);
 		        	    $this->match(self::NumbericLiteral);
 		        	break;
 
-		        	case 17:
+		        	case 18:
 		        	    $localContext = new Context\DateContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 17);
-		        	    $this->setState(78);
+		        	    $this->enterOuterAlt($localContext, 18);
+		        	    $this->setState(80);
 		        	    $this->match(self::DateLiteral);
 		        	break;
 
-		        	case 18:
+		        	case 19:
 		        	    $localContext = new Context\TimeContext($localContext);
-		        	    $this->enterOuterAlt($localContext, 18);
-		        	    $this->setState(79);
+		        	    $this->enterOuterAlt($localContext, 19);
+		        	    $this->setState(81);
 		        	    $this->match(self::TimeLiteral);
 		        	break;
 		        }
@@ -698,25 +709,25 @@ namespace Rebb\Val {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(82);
-		        $this->match(self::T__20);
-		        $this->setState(83);
+		        $this->setState(84);
+		        $this->match(self::T__21);
+		        $this->setState(85);
 		        $this->match(self::NumbericLiteral);
-		        $this->setState(88);
+		        $this->setState(90);
 		        $this->errorHandler->sync($this);
 
 		        $_la = $this->input->LA(1);
-		        while ($_la === self::T__22) {
-		        	$this->setState(84);
-		        	$this->match(self::T__22);
-		        	$this->setState(85);
+		        while ($_la === self::T__23) {
+		        	$this->setState(86);
+		        	$this->match(self::T__23);
+		        	$this->setState(87);
 		        	$this->match(self::NumbericLiteral);
-		        	$this->setState(90);
+		        	$this->setState(92);
 		        	$this->errorHandler->sync($this);
 		        	$_la = $this->input->LA(1);
 		        }
-		        $this->setState(91);
-		        $this->match(self::T__19);
+		        $this->setState(93);
+		        $this->match(self::T__20);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
 		        $this->errorHandler->reportError($this, $exception);
@@ -1256,6 +1267,39 @@ namespace Rebb\Val\Context {
 		{
 			if ($visitor instanceof RebbValVisitor) {
 			    return $visitor->visitIn($this);
+		    }
+
+			return $visitor->visitChildren($this);
+		}
+	}
+
+	class ArrayIsUniqueContext extends ExpressionContext
+	{
+		public function __construct(ExpressionContext $context)
+		{
+		    parent::__construct($context);
+
+		    $this->copyFrom($context);
+	    }
+
+		public function enterRule(ParseTreeListener $listener) : void
+		{
+			if ($listener instanceof RebbValListener) {
+			    $listener->enterArrayIsUnique($this);
+		    }
+		}
+
+		public function exitRule(ParseTreeListener $listener) : void
+		{
+			if ($listener instanceof RebbValListener) {
+			    $listener->exitArrayIsUnique($this);
+		    }
+		}
+
+		public function accept(ParseTreeVisitor $visitor)
+		{
+			if ($visitor instanceof RebbValVisitor) {
+			    return $visitor->visitArrayIsUnique($this);
 		    }
 
 			return $visitor->visitChildren($this);

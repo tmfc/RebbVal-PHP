@@ -179,6 +179,18 @@ interface RebbValListener extends ParseTreeListener {
 	 */
 	public function exitIs(Context\IsContext $context) : void;
 	/**
+	 * Enter a parse tree produced by the `ArrayIsUnique`
+	 * labeled alternative in {@see RebbValParser::expression()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterArrayIsUnique(Context\ArrayIsUniqueContext $context) : void;
+	/**
+	 * Exit a parse tree produced by the `ArrayIsUnique` labeled alternative
+	 * in {@see RebbValParser::expression()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitArrayIsUnique(Context\ArrayIsUniqueContext $context) : void;
+	/**
 	 * Enter a parse tree produced by the `IsHex`
 	 * labeled alternative in {@see RebbValParser::expression()}.
 	 * @param $context The parse tree.

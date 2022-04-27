@@ -174,6 +174,17 @@ class RebbValBaseVisitor extends AbstractParseTreeVisitor implements RebbValVisi
 	 * The default implementation returns the result of calling
 	 * {@see self::visitChildren()} on `context`.
 	 */
+	public function visitArrayIsUnique(Context\ArrayIsUniqueContext $context)
+	{
+	    return $this->visitChildren($context);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation returns the result of calling
+	 * {@see self::visitChildren()} on `context`.
+	 */
 	public function visitIsHex(Context\IsHexContext $context)
 	{
 	    return $this->visitChildren($context);

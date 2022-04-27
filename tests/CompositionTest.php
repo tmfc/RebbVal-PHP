@@ -54,7 +54,6 @@ class CompositionTest extends \Codeception\Test\Unit
 
     public function testCustomFunction()
     {
-
         $v = new RebbVal();
         $v->registerCustomValidator("Demo", function($obj) {
             if($obj == "Demo")

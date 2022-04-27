@@ -488,6 +488,21 @@ class EvalVisitor extends RebbValBaseVisitor
         $this->setValue($context, $result);
     }
 
+    public function visitArrayIsUnique(Context\ArrayIsUniqueContext $context)
+    {
+        if(!is_array($this->obj))
+        {
+            $this->setValue($context, false);
+            $this->error = "ObjectTypeNotSupported";
+        }
+        else
+        {
+            $result = (count(array_unique($this->obj)) == count($this->obj));
+            $this->setValue($context, $result);
+        }
+        return parent::visitArrayIsUnique($context);
+    }
+
     public function visitIsHex(Context\IsHexContext $context)
     {
         $b = new BuildInFunctions($this->config);

@@ -204,6 +204,19 @@ class RebbValBaseListener implements RebbValListener
 	 *
 	 * The default implementation does nothing.
 	 */
+	public function enterArrayIsUnique(Context\ArrayIsUniqueContext $context) : void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitArrayIsUnique(Context\ArrayIsUniqueContext $context) : void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
 	public function enterIsHex(Context\IsHexContext $context) : void {}
 
 	/**
